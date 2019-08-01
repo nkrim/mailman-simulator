@@ -6,6 +6,7 @@ public class MailPhysicsSystem : MonoBehaviour
 {
     // Public vars
     public Transform mailPrefab;
+    public Camera mailCamera;
     public int mailCount = 1;
     public float grabbedMailHeight = 2f;
     [Range(0f,1f)]
@@ -40,7 +41,7 @@ public class MailPhysicsSystem : MonoBehaviour
                 m.localPosition = new Vector3(Random.Range(min_x_start, max_x_start), 0.25f*(i+1), Random.Range(min_z_start, max_z_start));
                 Renderer rend = m.GetComponent<Renderer>();
                 Material mat = rend.material;
-                mat.SetColor("_BaseColor", Random.ColorHSV(0.75f, 1.0f));
+                mat.SetColor("_Color", Random.ColorHSV(0.75f, 1.0f));
             }
         }
     }
@@ -55,11 +56,11 @@ public class MailPhysicsSystem : MonoBehaviour
             }
             // Find the top mail item that was clicked
             int numhits = Mathf.Min(mailCount, Physics.RaycastNonAlloc(
-                Camera.main.ScreenPointToRay(Input.mousePosition),
+                mailCamera.ScreenPointToRay(Input.mousePosition),
                 hitbuffer, 100, LayerMask.GetMask(new string[] { "Mail" })));
             int top_hit_index = -1;
             float top_hit_val = float.PositiveInfinity;
-            Vector3 cam_pos = Camera.main.transform.position;
+            Vector3 cam_pos = mailCamera.transform.position;
             // Iterate through hit objects, and roughly compare distance from camera, if it's shorter than top_hit_val, use
             for (int i = 0; i < numhits; i++) {
                 RaycastHit hit = hitbuffer[i];
@@ -96,7 +97,7 @@ public class MailPhysicsSystem : MonoBehaviour
     void SetGrabbedMailPosition() {
         // Compute goal position, which should be exactly aligned with mouse along the plane of this physics system
         Plane mail_height_plane = new Plane(this.transform.up, this.transform.position + grabbedMailHeight*this.transform.up);
-        Ray cursor_ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray cursor_ray = mailCamera.ScreenPointToRay(Input.mousePosition);
         mail_height_plane.Raycast(cursor_ray, out float ray_distance);
         Vector3 goal_position = cursor_ray.GetPoint(ray_distance);
 

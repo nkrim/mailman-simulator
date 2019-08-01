@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* IDEAS
+ * - Throw this in with the physics system to unify it all
+ * - Adjust gravity based on tilt/rotation of car (but shifted 90deg still)
+ */
+
 public class ParentGravityHandler : MonoBehaviour
 {
     public bool dampenVerticalVelocity = true;

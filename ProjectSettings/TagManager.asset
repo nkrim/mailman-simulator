@@ -17,7 +17,7 @@ TagManager:
   - PostProcessing
   - 
   - Mail
-  - MailSub
+  - MailStatic
   - 
   - 
   - 
@@ -41,4 +41,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Mail
+    uniqueID: 963135475
     locked: 0

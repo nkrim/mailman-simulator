@@ -21,10 +21,14 @@ public class CarController : MonoBehaviour {
         bool faster_than_brake_threshold = p_rb.velocity.sqrMagnitude > brakeStopThreshold;
 
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
-        float brake = maxBrakeTorque * -Input.GetAxis("Vertical");
+        float brake = maxBrakeTorque * Mathf.Abs(Input.GetAxis("Vertical"));
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
         bool should_brake = faster_than_brake_threshold && (moving_forward ? motor < 0 : motor > 0);
+        if(Input.GetButton("Jump")) {
+            should_brake = true;
+            brake = maxBrakeTorque;
+        }
         if(should_brake)
             motor = 0;
         else

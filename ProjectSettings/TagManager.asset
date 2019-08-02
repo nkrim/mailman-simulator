@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MailObject
+  - Mailbox
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,9 @@ TagManager:
   - Mail
   - MailStatic
   - 
+  - House
   - 
-  - 
-  - 
+  - Car
   - 
   - 
   - 
